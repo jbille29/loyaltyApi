@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const registerBusiness = async (req, res) => {
+  console.log('register route!')
   const { name, email, password, loyaltyThreshold } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);

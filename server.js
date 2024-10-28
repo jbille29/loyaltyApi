@@ -8,7 +8,11 @@ const businessRoutes = require('./routes/business');
 const loyaltyRoutes = require('./routes/loyalty');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, {
