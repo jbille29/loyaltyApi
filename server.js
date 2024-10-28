@@ -8,10 +8,8 @@ const businessRoutes = require('./routes/business');
 const loyaltyRoutes = require('./routes/loyalty');
 
 const app = express();
-app.use(cors({
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(cors())
+app.options('*', cors()); 
 
 app.use(express.json());
 
