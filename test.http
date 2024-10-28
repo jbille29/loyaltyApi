@@ -1,0 +1,18 @@
+### Register a Business
+POST http://localhost:5000/api/business/register
+Content-Type: application/json
+
+{
+  "name": "Coffee Haven",
+  "email": "contact@coffeehaven.com",
+  "loyaltyThreshold": 5
+}
+
+### Track Loyalty Points
+POST http://localhost:5000/api/loyalty/track
+Content-Type: application/json
+
+{
+  "customerId": "customer123",
+  "businessId": "business_id_from_previous_response"
+}
