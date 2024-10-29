@@ -2,7 +2,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createCheckoutSession = async (req, res) => {
-  res.send('hi')
+  console.log('register route!')
+  res.send('hello from checkout')
   /*
   const { priceId, customerEmail } = req.body;
   
