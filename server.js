@@ -9,8 +9,23 @@ const loyaltyRoutes = require('./routes/loyalty');
 const stripeRoutes = require('./routes/stripe');
 
 const app = express();
-app.use(cors())
-app.options('*', cors()); 
+
+const allowedOrigins = ['http://localhost:5173', 'https://loyalty-program-eight.vercel.app']; // or replace with actual Render frontend URL
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g., mobile apps or CURL)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+app.options('*', cors());
 
 app.use(express.json());
 
