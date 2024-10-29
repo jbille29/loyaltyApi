@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const businessRoutes = require('./routes/business');
 const loyaltyRoutes = require('./routes/loyalty');
+const stripeRoutes = require('./routes/stripe');
 
 const app = express();
 app.use(cors())
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use('/api/business', businessRoutes);
 app.use('/api/loyalty', loyaltyRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

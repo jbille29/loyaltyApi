@@ -2,6 +2,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createCheckoutSession = async (req, res) => {
+  res.send('hi')
+  /*
   const { priceId, customerEmail } = req.body;
   
   try {
@@ -23,6 +25,7 @@ const createCheckoutSession = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to create checkout session' });
   }
+    */
 };
 
 module.exports = { createCheckoutSession };
