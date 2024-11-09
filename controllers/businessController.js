@@ -4,13 +4,25 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const registerBusiness = async (req, res) => {
-  console.log('register route!')
-  const { name, email, password, loyaltyThreshold } = req.body;
+  const { name, email, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const business = await Business.create({ name, email, password: hashedPassword, loyaltyThreshold });
-    res.status(201).json({ message: 'Business registered successfully' });
+    const business = await Business.create({ name, email, password: hashedPassword });
+
+    // Generate a JWT token for the new business
+    const token = jwt.sign({ businessId: business._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(201).json({
+      message: 'Business registered successfully',
+      token, // Include the token in the response
+      business: {
+        name: business.name,
+        email: business.email,
+        id: business._id
+      }
+    });
   } catch (error) {
+    console.error('Error registering business:', error);
     res.status(400).json({ error: 'Registration failed' });
   }
 };
@@ -23,14 +35,21 @@ const loginBusiness = async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     const token = jwt.sign({ businessId: business._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    res.json({
+      token,
+      business: {
+        name: business.name,
+        email: business.email,
+        id: business._id
+      }
+    });
   } catch (error) {
     res.status(500).json({ error: 'Login failed' });
   }
 };
 
-const getProfile = async (req, res) => {
-  const { businessId } = req.business;
+const getDashboard = async (req, res) => {
+  const { businessId } = req.params;
   try {
     const business = await Business.findById(businessId).select('-password');
     res.json(business);
@@ -59,4 +78,4 @@ const getAnalytics = async (req, res) => {
   }
 };
 
-module.exports = { registerBusiness, loginBusiness, getProfile, getAnalytics };
+module.exports = { registerBusiness, loginBusiness, getDashboard, getAnalytics };

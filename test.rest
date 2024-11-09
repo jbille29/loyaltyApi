@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:5000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJidXNpbmVzc0lkIjoiNjcyNjI0YmNlNTQxMTU4YmE3NGU0ODUyIiwiaWF0IjoxNzMwNTUzMDIwLCJleHAiOjE3MzA1NTY2MjB9.RBz3gocxhN9JyVzKKz2hB-r0YidyOv020SBrRqk1g54
+
+### Business Routes #########################
+
+###
+# Register business
+POST {{baseUrl}}/business/register
+Content-Type: application/json
+
+{
+  "name": "New Business",
+  "email": "newb@g.com",
+  "password": "123456"
+}
+
+###
+# Login business
+POST {{baseUrl}}/business/login
+Content-Type: application/json
+
+{
+  "email": "newB@g.com",
+  "password": "123456"
+}
+
+###
+# Get business dashboard
+GET {{baseUrl}}/business/672624bce541158ba74e4852/dashboard
+Authorization: Bearer {{token}}

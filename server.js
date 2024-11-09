@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const businessRoutes = require('./routes/business');
 const loyaltyRoutes = require('./routes/loyalty');
+const punchCard = require('./routes/punchCard');
 const stripeRoutes = require('./routes/stripe');
 
 const app = express();
@@ -38,6 +39,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use('/api/business', businessRoutes);
 app.use('/api/loyalty', loyaltyRoutes);
+app.use('/api/punchcards', punchCard);
 app.use('/api/stripe', stripeRoutes);
 
 const PORT = process.env.PORT || 5000;

@@ -1,8 +1,9 @@
 // api/controllers/stripeController.js
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST_KEY);
 
 const createCheckoutSession = async (req, res) => {
   console.log('hellow from checkout')
+  console.log(process.env.STRIPE_SECRET_TEST_KEY)
   
   const { priceId, customerEmail } = req.body;
 
@@ -20,10 +21,10 @@ const createCheckoutSession = async (req, res) => {
       success_url: `${process.env.CLIENT_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/pricing`,
     });
-    console.log('its working')
+    console.log('Session created:', session.id);
     res.json({ sessionId: session.id });
   } catch (error) {
-    console.log('not working')
+    console.error('Failed to create checkout session:', error);
     res.status(500).json({ error: 'Failed to create checkout session' });
   }
     
