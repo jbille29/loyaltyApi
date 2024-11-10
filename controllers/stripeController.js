@@ -1,9 +1,7 @@
 // api/controllers/stripeController.js
-const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createCheckoutSession = async (req, res) => {
-  console.log('hellow from checkout')
-  console.log(process.env.STRIPE_SECRET_TEST_KEY)
   
   const { priceId, customerEmail } = req.body;
 
