@@ -17,7 +17,7 @@ const punchCardSchema = new Schema({
     default: 0,
     min: 0,
   },
-  rewardDescription: {
+  description: {
     type: String,
     required: true,
     trim: true,

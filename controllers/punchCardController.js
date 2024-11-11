@@ -2,12 +2,14 @@ const PunchCard = require('../models/PunchCard');
 
 // Create a new punch card
 exports.createPunchCard = async (req, res) => {
-  console.log('punchcard hit')
+  console.log('Create Punch Card')
   try {
     const punchCard = new PunchCard(req.body);
     await punchCard.save();
+    console.log('Punch Card Created')
     res.status(201).json(punchCard);
   } catch (error) {
+    console.log('Punch Card Failed')
     res.status(400).json({ message: error.message });
   }
 };
